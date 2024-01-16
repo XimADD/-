@@ -5,7 +5,7 @@ export PATH
 # 新的所有者和组，需要替换为实际的用户名和组名
 OWNER="XinuxLyDD"
 GROUP="197121"
-SITEDIR="/d/new-dir"
+SITEDIR="new-dir"
 
 ChangeOwnerExcludeDir() {
     local targetDir=$1
