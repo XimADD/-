@@ -24,7 +24,7 @@ ChangeOwnerExcludeDir() {
         fi
 
         # 更改所有者和组
-        chown -R "$newOwner:$newGroup" "$item" 
+        sudo chown -R "$newOwner:$newGroup" "$item" 
     done
 }
 
