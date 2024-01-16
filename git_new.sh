@@ -5,7 +5,7 @@ export PATH
 # 新的所有者和组，需要替换为实际的用户名和组名
 OWNER="root"
 GROUP="root"
-SITEDIR="/root"
+SITEDIR="/root/"
 
 ChangeOwnerExcludeDir() {
     local targetDir=$1
@@ -52,7 +52,7 @@ PullUI()
 
 DoCrond()
 {
-    PullUI "/git_ew" "origin/main"
+    PullUI "git_ew" "remotes/origin/main"
     sleep 10
 }
 
