@@ -5,7 +5,7 @@ export PATH
 # 新的所有者和组，需要替换为实际的用户名和组名
 OWNER="XinuxLyDD"
 GROUP="197121"
-SITEDIR="/www/wwwroot/site"
+SITEDIR="/d/new-dir"
 
 ChangeOwnerExcludeDir() {
     local targetDir=$1
@@ -30,7 +30,7 @@ ChangeOwnerExcludeDir() {
 
 CoverLocalModel()
 {
-    sudo -u root git fetch --all && sudo -u root git reset --hard $1
+	git fetch --all && git reset --hard $1
     #chown -R kakaftpuser:www ./
 }
 
@@ -39,7 +39,7 @@ PullUI()
 {
     cd $SITEDIR/${1}
     CheckGitStatus "" ${2}
-    pullStatus=$(sudo -u root git pull)
+    pullStatus=$(git pull)
     result=$(echo "$pullStatus" | grep "Updating")
     if [ "$result" != "" ] ; then
         Logs "UI_${1}:有更新"
@@ -58,7 +58,7 @@ DoCrond()
 
 CheckGitStatus()
 {
-    gitStatus=$(sudo -u root git status 2>&1)
+    gitStatus=$(git status 2>&1)
     gitStatusTips=$(Logs "$gitStatus" | grep "Changes not staged for commit")
     gituUnmergedTips=$(Logs "$gitStatus" | grep "have unmerged")
     if [ "$gitStatusTips" != ""  ] ; then
@@ -69,8 +69,8 @@ CheckGitStatus()
     fi
     if [ "$gituUnmergedTips" != ""  ] ; then
          #sudo -u root git merge --abort
-		 sudo -u root git merge --quit
-         sudo -u root git config pull.rebase true
+		 git merge --quit
+         git config pull.rebase true
          Logs "放弃本地合并."
     fi
 	sleep 2
