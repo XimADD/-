@@ -30,7 +30,7 @@ ChangeOwnerExcludeDir() {
 
 CoverLocalModel()
 {
-	git fetch --all && git reset --hard $1
+    sudo -u root git fetch --all && sudo -u root git reset --hard $1
     #chown -R kakaftpuser:www ./
 }
 
@@ -39,7 +39,7 @@ PullUI()
 {
     cd $SITEDIR/${1}
     CheckGitStatus "" ${2}
-    pullStatus=$(git pull)
+    pullStatus=$(sudo -u root git pull)
     result=$(echo "$pullStatus" | grep "Updating")
     if [ "$result" != "" ] ; then
         Logs "UI_${1}:有更新"
@@ -58,7 +58,7 @@ DoCrond()
 
 CheckGitStatus()
 {
-    gitStatus=$(git status 2>&1)
+    gitStatus=$(sudo -u root git status 2>&1)
     gitStatusTips=$(Logs "$gitStatus" | grep "Changes not staged for commit")
     gituUnmergedTips=$(Logs "$gitStatus" | grep "have unmerged")
     if [ "$gitStatusTips" != ""  ] ; then
@@ -69,8 +69,8 @@ CheckGitStatus()
     fi
     if [ "$gituUnmergedTips" != ""  ] ; then
          #sudo -u root git merge --abort
-		 git merge --quit
-         git config pull.rebase true
+		 sudo -u root git merge --quit
+         sudo -u root git config pull.rebase true
          Logs "放弃本地合并."
     fi
 	sleep 2
